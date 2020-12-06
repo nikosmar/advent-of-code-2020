@@ -20,8 +20,8 @@ def divide(seat, min, max):
 with open("boardingpasses.txt") as boarding_passes:
     detected_seat_id_sum = 0
 
-    max_seat_id = 976
-    min_seat_id = max_seat_id
+    max_seat_id = float('-inf')
+    min_seat_id = float('inf')
 
     for line in boarding_passes:
         boarding_pass = line.strip()
@@ -34,9 +34,13 @@ with open("boardingpasses.txt") as boarding_passes:
         if seat_id < min_seat_id:
             min_seat_id = seat_id
 
+        if seat_id > max_seat_id:
+            max_seat_id = seat_id
+
         detected_seat_id_sum += seat_id
 
-    # sum of a sequence natural numbers
-    expected_seat_id_sum = (max_seat_id * (max_seat_id + 1) - min_seat_id * (min_seat_id - 1)) / 2
+    # sum of a sequence of natural numbers
+    expected_seat_id_sum = (max_seat_id * (max_seat_id + 1) -
+                            min_seat_id * (min_seat_id - 1)) / 2
 
     print(int(expected_seat_id_sum) - detected_seat_id_sum)
