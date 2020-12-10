@@ -33,14 +33,14 @@ for command in cycle:
 
     arg = command[2]
 
-    mycycle = []
+    new_cycle = []
 
     if op != "acc":
         new_op = "jmp" if op == "nop" else "nop"
         bootcode[pc][0] = new_op + bootcode[pc][0][3:]
 
-        while pc < len(bootcode) and (not mycycle or pc != mycycle[0]):
-            mycycle.append(pc)
+        while pc < len(bootcode) and (not new_cycle or pc != new_cycle[0]):
+            new_cycle.append(pc)
 
             op = bootcode[pc][0][:3]
             arg = int(bootcode[pc][0][4:])
@@ -54,6 +54,9 @@ for command in cycle:
         bootcode[initial_pc][0] = initial_op + bootcode[initial_pc][0][3:]
     else:
         break
+
+del cycle
+del new_cycle
 
 accumulator = 0
 pc = 0
